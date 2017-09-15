@@ -1,0 +1,31 @@
+{
+  "name": "hdnet/fal-dummy",
+  "type": "typo3-cms-extension",
+  "description": "",
+  "require": {
+    "php": ">=7.0.0",
+    "typo3/cms-core": ">=8.7.0"
+  },
+  "require-dev": {
+    "typo3/testing-framework": "~1.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "HDNET\\FalDummy\\": "Classes/"
+    }
+  },
+  "homepage": "https://www.hdnet.de",
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin",
+    "preferred-install": {
+      "*": "dist"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
+  }
+}
