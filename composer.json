@@ -1,5 +1,5 @@
 {
-  "name": "hdnet/fal-dummy",
+  "name": "lochmueller/fal-dummy",
   "type": "typo3-cms-extension",
   "description": "",
   "require": {
