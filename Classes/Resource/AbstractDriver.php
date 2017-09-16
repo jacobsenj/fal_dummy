@@ -7,11 +7,13 @@
 
 namespace HDNET\FalDummy\Resource\Driver;
 
+use HDNET\FalDummy\Service\PlaceholdItService;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Core\Resource\Index\FileIndexRepository;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Local dummy driver
@@ -26,13 +28,6 @@ abstract class AbstractDriver extends LocalDriver
      * @var string
      */
     protected $localDummyResourcePath;
-
-    /**
-     * Placeholder service URL.
-     *
-     * @var string
-     */
-    protected $placeholderServiceUrl = 'https://placehold.it/%dx%d&text=%s';
 
     /**
      * Initializes this object. This is called by the storage after the driver
@@ -61,12 +56,8 @@ abstract class AbstractDriver extends LocalDriver
             return $publicUrl;
         }
 
-        return sprintf(
-            $this->placeholderServiceUrl,
-            $file->getProperty('width'),
-            $file->getProperty('height'),
-            $this->getFileText($file)
-        );
+        $placeholdIt = GeneralUtility::makeInstance(PlaceholdItService::class);
+        return $placeholdIt->getUrl($file->getProperty('width'), $file->getProperty('height'), $this->getFileText($file));
     }
 
     /**
@@ -154,7 +145,7 @@ abstract class AbstractDriver extends LocalDriver
         if (isset($file)) {
             $fileProperties = $file->getProperties();
 
-            if (isset($fileProperties['type']) && (int) $fileProperties['type'] === AbstractFile::FILETYPE_IMAGE) {
+            if (isset($fileProperties['type']) && (int)$fileProperties['type'] === AbstractFile::FILETYPE_IMAGE) {
                 return false;
             }
             // @todo prüfen ob es die Datei Lokal gibt

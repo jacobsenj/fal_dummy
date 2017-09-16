@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 /**
  * Local dummy driver
  * - Replace existing image files.
- *
  */
 abstract class AbstractReplacementDriver extends AbstractDriver
 {
